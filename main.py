@@ -28,7 +28,22 @@ def get_week_day(date):
   }
   day = date.weekday()
   return week_day_dict[day]
-  
+
+def get_fruits(): 
+  fruits = {
+    0 : '香蕉',
+    1 : '百香果',
+    2 : '西瓜',
+    3 : '哈密瓜',
+    4 : '白肉火龙果',
+    5 : '菠萝蜜',
+    6 : '蓝莓',
+    7 : '榴莲',
+    8 : '脐橙',
+  }
+  random = random.randint(0,8)
+  return fruits[random]
+
 
 def get_weather():
   url = "http://autodev.openspeech.cn/csp/api/v2.1/weather?openId=aiuicus&clientType=android&sign=android&city=" + city
@@ -60,6 +75,6 @@ client = WeChatClient(app_id, app_secret)
 
 wm = WeChatMessage(client)
 wea, temperature = get_weather()
-data = {"weather":{"value":wea},"weekday":{"value":get_week_day(datetime.datetime.now())},"temperature":{"value":temperature},"love_days":{"value":get_count()},"birthday_left":{"value":get_birthday()},"words":{"value":get_words(), "color":get_random_color()}}
+data = {"weather":{"value":wea},"fruit:{"value":get_fruits()}",weekday":{"value":get_week_day(datetime.datetime.now())},"temperature":{"value":temperature},"love_days":{"value":get_count()},"birthday_left":{"value":get_birthday()},"words":{"value":get_words(), "color":get_random_color()}}
 res = wm.send_template(user_id, template_id, data)
 print(res)
